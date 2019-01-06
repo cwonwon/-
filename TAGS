@@ -1,0 +1,85 @@
+import java.util.Scanner;
+  
+   /**
+    * 吃货联盟订餐管理系统
+    * 
+    */
+   public class OrderingMsg {
+       public static void main(String[] args) {
+           // 数据主体：一组订单信息
+        String[] names = new String[4]; // 订餐人名称
+          String[] dishMegs = new String[4]; // 所选菜品
+          int[] times = new int[4]; // 送餐时间
+         String[] addresses = new String[4]; // 送餐地址
+          int[] states = new int[4]; // 订单状态： 0：已预定 1：已完成
+          double[] sumPrices = new double[4]; // 总金额
+         
+          //初始化2个订单信息
+          names[0] = "张晴";
+          dishMegs[0] = "红烧带鱼 2份";
+         times[0] = 12;
+        addresses[0] = "天成路207号";
+          sumPrices[0] = 76.0;
+         states[0] = 1;
+         
+         names[1] = "张晴";
+       dishMegs[1] = "鱼香肉丝 2份";
+         times[1] = 18;
+          addresses[1] = "天成路207号";
+          sumPrices[1] = 20.0;
+          
+         
+          // 供选择的菜品信息
+          String[] dishNames = { "红烧带鱼", "鱼香肉丝", "时令鲜蔬" }; // 菜品名称
+         double[] prices = new double[] { 38.0, 20.0, 10.0 }; // 菜品单价
+          int[] praiseNums = new int[3];
+ 
+         Scanner input = new Scanner(System.in);
+         int num = -1; // 用户输入0返回主菜单，否则退出系统
+          boolean isExit = false; // 标志用户是否退出系统： true:退出系统
+ 
+        System.out.println("\n欢迎使用“吃货联盟订餐系统”");
+         // 循环：显示菜单，根据用户选择的数字执行相应功能
+          do {
+              // 显示菜单            
+              System.out.println("****************************");
+              System.out.println("1、我要订餐");
+              System.out.println("2、查看餐袋");
+              System.out.println("3、签收订单");
+              System.out.println("4、删除订单");
+             System.out.println("5、我要点赞");
+            System.out.println("6、退出系统");
+             System.out.println("****************************");
+             System.out.print("请选择：");
+           int choose = input.nextInt(); // 记录用户选择的功能编号
+              boolean isAdd = false;  //记录是否可以订餐
+              boolean isSignFind = false;  //找到要签收的订单
+             boolean isDelFind = false;  //找到要删除的订单
+              // 根据用户选择的功能编号执行相应功能
+              switch (choose) {
+              case 1:
+                // 我要订餐
+                 System.out.println("***我要订餐***");
+                 for (int j = 0; j < names.length; j++) {                    
+                     if(names[j] == null){  //找到第一个空位置，可以添加订单信息
+                        isAdd = true;  //置标志位，可以订餐
+                        System.out.print("请输入订餐人姓名：");
+                        String name = input.next(); 
+                      // 显示供选择的菜品信息
+                   System.out.println("序号" + "\t" + "菜名"+"\t"+"单价");
+                     for (int i = 0; i < dishNames.length; i++) {
+                          String price = prices[i] + "元";
+                          String priaiseNum = (praiseNums[i]) > 0 ? praiseNums[i]
+                               + "赞" : "";
+                          
+                          System.out.println((i + 1) + "\t" + dishNames[i] + "\t"    +price+"\t"+ priaiseNum);
+                      }
+                      // 用户点菜
+                      System.out.print("请选择您要点的菜品编号:");
+                      int chooseDish = input.nextInt();
+                      System.out.print("请选择您需要的份数:");
+                      int number = input.nextInt();
+                     String dishMeg =  dishNames[chooseDish - 1]
+                              +" "+ number + "份";
+                     double sumPrice = prices[chooseDish - 1] * number;
+                      //餐
